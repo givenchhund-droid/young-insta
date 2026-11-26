@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>Young Insta</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: 0;
+}
+header { text-align: center; }
+h1 { color: #ff4fa3; }
+.card {
+  background: #191919;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 18px 0;
+}
+button {
+  background: linear-gradient(90deg,#ff4fa3,#8b5cf6);
+  color: white;
+  border: 0;
+  padding: 15px;
+  width: 100%;
+  border-radius: 12px;
+  margin: 8px 0;
+  font-size: 16px;
+}
+input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #444;
+  background: #101010;
+  color: white;
+  margin: 10px 0;
+  font-size: 16px;
+}
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.nav button { background: #292929; }
+.page { display: none; }
+.page.active { display: block; }
+.notice { color: #bbb; font-size: 13px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<header>
+<h1>Young Insta 🖤</h1>
+<p>Your social media dashboard</p>
+</header>
+
+<div class="nav">
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('comments')">Comment Finder</button>
+<button onclick="showPage('profiles')">Profile Search</button>
+<button onclick="showPage('accounts')">My Accounts</button>
+<button onclick="showPage('create')">Create Account</button>
+<button onclick="showPage('security')">Security</button>
+</div>
+
+<section id="home" class="page active">
+<div class="card">
+<h3>Welcome to Young Insta</h3>
+<p>Your social media dashboard.</p>
+<p class="notice">Designed to stay inside Telegram.</p>
+</div>
+</section>
+
+<section id="comments" class="page">
+<div class="card">
+<h3>Comment Finder</h3>
+<input id="posturl" placeholder="Instagram post URL">
+<button onclick="commentSearch()">Find Commenters</button>
+<p id="commentResult" class="notice">Live comment access requires an approved Instagram integration.</p>
+</div>
+</section>
+
+<section id="profiles" class="page">
+<div class="card">
+<h3>Profile Search</h3>
+<input id="username" placeholder="Instagram username">
+<button onclick="profileSearch()">Search Username</button>
+<p id="profileResult" class="notice">Live profile information requires supported Instagram access.</p>
+</div>
+</section>
+
+<section id="accounts" class="page">
+<div class="card">
+<h3>My Accounts</h3>
+<p class="notice">Official Instagram authorization must be configured before accounts can be connected.</p>
+</div>
+</section>
+
+<section id="create" class="page">
+<div class="card">
+<h3>Create Instagram Account</h3>
+<p class="notice">Instagram controls registration and verification. Never share your password or verification code here.</p>
+</div>
+</section>
+
+<section id="security" class="page">
+<div class="card">
+<h3>Security</h3>
+<p class="notice">Never share passwords or verification codes. Use official authorization only.</p>
+</div>
+</section>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+  document.getElementById(name).classList.add('active');
+}
+
+function commentSearch() {
+  const url = document.getElementById('posturl').value.trim();
+  document.getElementById('commentResult').textContent =
+    /^https:\/\/(www\.)?instagram\.com\/(p|reel|tv)\//i.test(url)
+    ? 'The post URL is valid. Live comments require an approved Instagram integration.'
+    : 'Please enter a valid Instagram post or reel URL.';
+}
+
+function profileSearch() {
+  const username = document.getElementById('username').value.trim().replace(/^@/, '');
+  document.getElementById('profileResult').textContent =
+    /^[a-zA-Z0-9._]{1,30}$/.test(username)
+    ? 'Username: @' + username + '. Live profile lookup requires supported Instagram access.'
+    : 'Please enter a valid Instagram username.';
+}
+</script>
+
+</body>
+</html>

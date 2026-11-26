@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<title>Young Insta</title>
+<style>
+body {
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+h1 { color: #ff4fa3; }
+.card {
+  background: #191919;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 18px 0;
+}
+button {
+  background: linear-gradient(90deg,#ff4fa3,#8b5cf6);
+  color: white;
+  border: 0;
+  padding: 15px;
+  width: 100%;
+  border-radius: 12px;
+  margin: 8px 0;
+  font-size: 16px;
+}
+input {
+  width: 90%;
+  padding: 13px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px 0;
+  font-size: 16px;
+}
+</style>
+</head>
+<body>
+
+<h1>Young Insta 🖤</h1>
+<p>Your social media dashboard</p>
+
+<div class="card">
+<h3>Create Instagram Account</h3>
+<p>Register through Instagram's official website.</p>
+<button onclick="openInstagram('https://www.instagram.com/accounts/emailsignup/')">
+Create Account
+</button>
+</div>
+
+<div class="card">
+<h3>Find Instagram Profiles</h3>
+<input id="username" placeholder="Enter Instagram username">
+<button onclick="searchProfile()">Search Profile</button>
+</div>
+
+<div class="card">
+<h3>Threads</h3>
+<button onclick="openInstagram('https://www.threads.net/')">
+Open Threads
+</button>
+</div>
+
+<script>
+const tg = window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+
+function openInstagram(url) {
+  tg.openLink(url);
+}
+
+function searchProfile() {
+  const username = document.getElementById("username").value
+    .trim().replace(/^@/, "");
+
+  if (!/^[a-zA-Z0-9._]{1,30}$/.test(username)) {
+    alert("Enter a valid Instagram username.");
+    return;
+  }
+
+  openInstagram("https://www.instagram.com/" +
+    encodeURIComponent(username) + "/");
+}
+</script>
+
+</body>
+</html>
+0
+
