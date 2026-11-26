@@ -26,6 +26,7 @@ button{border:0;border-radius:12px;padding:14px;color:white;font-weight:bold;fon
 .tile small{display:block;color:#999;margin-top:6px}
 .page{display:none}.page.active{display:block}
 input{width:100%;padding:14px;border:1px solid #393945;background:#101017;color:white;border-radius:11px;margin:8px 0;font-size:15px}
+select{width:100%;padding:14px;border:1px solid #393945;background:#101017;color:white;border-radius:11px;margin:12px 0;font-size:15px}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#111119;border-top:1px solid #292936;display:flex;justify-content:space-around;padding:12px 4px calc(12px + env(safe-area-inset-bottom))}
 .bottom button{background:transparent;color:#aaa;padding:8px;font-size:12px}
 .bottom button.active{color:#ff65b0}
@@ -51,6 +52,7 @@ input{width:100%;padding:14px;border:1px solid #393945;background:#101017;color:
 <button class="tile" onclick="show('messages')"><span>✉</span><b>Messages</b><small>Messaging workspace</small></button>
 <button class="tile" onclick="show('comments')"><span>▤</span><b>Comments</b><small>Comment tools</small></button>
 <button class="tile" onclick="show('activity')"><span>♡</span><b>Activity</b><small>Likes and follows</small></button>
+<button class="tile" onclick="show('country')"><span>🌍</span><b>Country Preference</b><small>Choose discovery country</small></button>
 </div>
 </section>
 
@@ -94,6 +96,23 @@ input{width:100%;padding:14px;border:1px solid #393945;background:#101017;color:
 <section id="activity" class="page">
 <h2>Activity</h2>
 <div class="card"><h3>Likes and follows</h3><p>Activity tools will be enabled only where Instagram authorises them.</p></div>
+</section>
+
+<section id="country" class="page">
+<h2>Country Preference 🌍</h2>
+<div class="card">
+<h3>Choose your preferred country</h3>
+<p>Choose which country you want Young Insta to use for its own discovery preferences.</p>
+<select id="countryChoice">
+<option value="">Choose a country</option>
+<option value="United States">🇺🇸 United States</option>
+<option value="United Kingdom">🇬🇧 United Kingdom</option>
+<option value="Australia">🇦🇺 Australia</option>
+<option value="Canada">🇨🇦 Canada</option>
+</select>
+<button class="primary" onclick="saveCountryPreference()">Save preference</button>
+<p id="countryStatus" class="note">Your real device location is not displayed here.</p>
+</div>
 </section>
 
 <section id="security" class="page">
@@ -140,6 +159,24 @@ document.getElementById('commentResult').textContent=
 ?'Link format looks valid. Live comment access is not connected yet.'
 :'Enter a valid Instagram post or reel link.';
 }
+
+function saveCountryPreference(){
+  const country=document.getElementById('countryChoice').value;
+  const status=document.getElementById('countryStatus');
+  if(!country){status.textContent='Please choose a country first.';return;}
+  try{
+    localStorage.setItem('youngInstaCountryPreference',country);
+    status.textContent='Your discovery preference is saved: '+country+'.';
+  }catch(e){status.textContent='Could not save on this device.';}
+}
+try{
+  const savedCountry=localStorage.getItem('youngInstaCountryPreference');
+  if(savedCountry){
+    document.getElementById('countryChoice').value=savedCountry;
+    document.getElementById('countryStatus').textContent='Saved preference: '+savedCountry+'.';
+  }
+}catch(e){}
+
 </script>
 </body>
 </html>
