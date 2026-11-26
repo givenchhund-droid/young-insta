@@ -57,16 +57,16 @@ select{width:100%;padding:14px;border:1px solid #393945;background:#101017;color
 </section>
 
 <section id="accounts" class="page">
-<h2>Accounts</h2>
-<div class="card">
-<h3>Connect Instagram</h3>
-<p>Connect an account only through Instagram's authorised sign-in process.</p>
-<p class="note">No Instagram password or verification code should be entered into this dashboard.</p>
-<button class="primary" onclick="alert('Official Instagram connection has not been configured yet.')">Connect Instagram</button>
+<h2>Instagram Accounts</h2>
+<div class="card hero">
+<h3>Welcome to Instagram</h3>
+<p>Create a new Instagram account or sign in to an existing one.</p>
+<button class="primary" onclick="openInstagram('https://www.instagram.com/accounts/emailsignup/')">Create Instagram account</button>
+<button class="secondary" onclick="openInstagram('https://www.instagram.com/accounts/login/')">Log in to Instagram</button>
 </div>
 <div class="card">
-<h3>Create an account</h3>
-<p>Instagram controls account registration and verification. Young Insta cannot create a real Instagram account by itself.</p>
+<h3>Account security</h3>
+<p>Enter passwords and verification codes only on Instagram's official page.</p>
 </div>
 </section>
 
@@ -136,6 +136,10 @@ select{width:100%;padding:14px;border:1px solid #393945;background:#101017;color
 const tg=window.Telegram.WebApp;
 tg.ready();
 tg.expand();
+
+function openInstagram(url){
+  window.location.href = url;
+}
 
 function show(id,button){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
