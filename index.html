@@ -2,148 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09090d">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <title>Young Insta</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  background: #080808;
-  color: white;
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  margin: 0;
-}
-header { text-align: center; }
-h1 { color: #ff4fa3; }
-.card {
-  background: #191919;
-  padding: 20px;
-  border-radius: 16px;
-  margin: 18px 0;
-}
-button {
-  background: linear-gradient(90deg,#ff4fa3,#8b5cf6);
-  color: white;
-  border: 0;
-  padding: 15px;
-  width: 100%;
-  border-radius: 12px;
-  margin: 8px 0;
-  font-size: 16px;
-}
-input {
-  width: 100%;
-  padding: 13px;
-  border-radius: 10px;
-  border: 1px solid #444;
-  background: #101010;
-  color: white;
-  margin: 10px 0;
-  font-size: 16px;
-}
-.nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.nav button { background: #292929; }
-.page { display: none; }
-.page.active { display: block; }
-.notice { color: #bbb; font-size: 13px; line-height: 1.6; }
+*{box-sizing:border-box}
+body{margin:0;background:#09090d;color:#fff;font-family:Arial,sans-serif;padding:20px 16px 90px}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.logo{font-size:25px;font-weight:800;background:linear-gradient(90deg,#ff4fa3,#a56bff);background-clip:text;color:transparent}
+.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#ff4fa3,#8b5cf6);display:grid;place-items:center;font-weight:bold}
+h2{font-size:23px;margin:8px 0}
+p{color:#aaa;line-height:1.5;font-size:14px}
+.card{background:#17171f;border:1px solid #292936;border-radius:18px;padding:18px;margin:14px 0}
+.hero{background:linear-gradient(135deg,#35152f,#20183c);padding:24px}
+button{border:0;border-radius:12px;padding:14px;color:white;font-weight:bold;font-size:14px;cursor:pointer}
+.primary{background:linear-gradient(90deg,#ff4fa3,#8758ef);width:100%;margin-top:12px}
+.secondary{background:#292936;width:100%;margin-top:9px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:#17171f;border:1px solid #292936;border-radius:15px;padding:17px 12px;text-align:left;color:white}
+.tile span{display:block;font-size:22px;margin-bottom:12px}
+.tile b{font-size:14px}
+.tile small{display:block;color:#999;margin-top:6px}
+.page{display:none}.page.active{display:block}
+input{width:100%;padding:14px;border:1px solid #393945;background:#101017;color:white;border-radius:11px;margin:8px 0;font-size:15px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#111119;border-top:1px solid #292936;display:flex;justify-content:space-around;padding:12px 4px calc(12px + env(safe-area-inset-bottom))}
+.bottom button{background:transparent;color:#aaa;padding:8px;font-size:12px}
+.bottom button.active{color:#ff65b0}
+.note{font-size:12px;color:#999}
 </style>
 </head>
 <body>
-
 <header>
-<h1>Young Insta 🖤</h1>
-<p>Your social media dashboard</p>
+<div class="logo">YOUNG INSTA</div>
+<div class="avatar">Y</div>
 </header>
 
-<div class="nav">
-<button onclick="showPage('home')">Home</button>
-<button onclick="showPage('comments')">Comment Finder</button>
-<button onclick="showPage('profiles')">Profile Search</button>
-<button onclick="showPage('accounts')">My Accounts</button>
-<button onclick="showPage('create')">Create Account</button>
-<button onclick="showPage('security')">Security</button>
-</div>
-
 <section id="home" class="page active">
-<div class="card">
-<h3>Welcome to Young Insta</h3>
-<p>Your social media dashboard.</p>
-<p class="notice">Designed to stay inside Telegram.</p>
+<div class="card hero">
+<p>WELCOME TO</p>
+<h2>Young Insta 🖤</h2>
+<p>Your social dashboard, designed for Telegram.</p>
+<button class="primary" onclick="show('accounts')">Connect an account</button>
 </div>
-</section>
-
-<section id="comments" class="page">
-<div class="card">
-<h3>Comment Finder</h3>
-<input id="posturl" placeholder="Instagram post URL">
-<button onclick="commentSearch()">Find Commenters</button>
-<p id="commentResult" class="notice">Live comment access requires an approved Instagram integration.</p>
-</div>
-</section>
-
-<section id="profiles" class="page">
-<div class="card">
-<h3>Profile Search</h3>
-<input id="username" placeholder="Instagram username">
-<button onclick="profileSearch()">Search Username</button>
-<p id="profileResult" class="notice">Live profile information requires supported Instagram access.</p>
+<h2>Explore features</h2>
+<div class="grid">
+<button class="tile" onclick="show('profiles')"><span>⌕</span><b>Profile Search</b><small>Find profiles</small></button>
+<button class="tile" onclick="show('messages')"><span>✉</span><b>Messages</b><small>Messaging workspace</small></button>
+<button class="tile" onclick="show('comments')"><span>▤</span><b>Comments</b><small>Comment tools</small></button>
+<button class="tile" onclick="show('activity')"><span>♡</span><b>Activity</b><small>Likes and follows</small></button>
 </div>
 </section>
 
 <section id="accounts" class="page">
+<h2>Accounts</h2>
 <div class="card">
-<h3>My Accounts</h3>
-<p class="notice">Official Instagram authorization must be configured before accounts can be connected.</p>
+<h3>Connect Instagram</h3>
+<p>Connect an account only through Instagram's authorised sign-in process.</p>
+<p class="note">No Instagram password or verification code should be entered into this dashboard.</p>
+<button class="primary" onclick="alert('Official Instagram connection has not been configured yet.')">Connect Instagram</button>
+</div>
+<div class="card">
+<h3>Create an account</h3>
+<p>Instagram controls account registration and verification. Young Insta cannot create a real Instagram account by itself.</p>
 </div>
 </section>
 
-<section id="create" class="page">
+<section id="profiles" class="page">
+<h2>Profile Search</h2>
 <div class="card">
-<h3>Create Instagram Account</h3>
-<p class="notice">Instagram controls registration and verification. Never share your password or verification code here.</p>
+<input id="username" placeholder="Instagram username">
+<button class="primary" onclick="searchProfile()">Search</button>
+<p id="profileResult" class="note">Live profile search is not connected yet.</p>
 </div>
+</section>
+
+<section id="messages" class="page">
+<h2>Messages</h2>
+<div class="card"><h3>Instagram Messages</h3><p>Messaging will be connected when an authorised Instagram integration is available.</p></div>
+</section>
+
+<section id="comments" class="page">
+<h2>Comments</h2>
+<div class="card">
+<input id="posturl" placeholder="Instagram post or reel URL">
+<button class="primary" onclick="checkPost()">Check link</button>
+<p id="commentResult" class="note">Live comment access is not connected yet.</p>
+</div>
+</section>
+
+<section id="activity" class="page">
+<h2>Activity</h2>
+<div class="card"><h3>Likes and follows</h3><p>Activity tools will be enabled only where Instagram authorises them.</p></div>
 </section>
 
 <section id="security" class="page">
+<h2>Security</h2>
 <div class="card">
-<h3>Security</h3>
-<p class="notice">Never share passwords or verification codes. Use official authorization only.</p>
+<h3>Account protection</h3>
+<p>Use official sign-in, protect access tokens, and never share passwords or verification codes.</p>
+<p class="note">No service can guarantee that Instagram will never restrict an account.</p>
 </div>
 </section>
 
+<nav class="bottom">
+<button class="active" onclick="show('home',this)">⌂<br>Home</button>
+<button onclick="show('profiles',this)">⌕<br>Search</button>
+<button onclick="show('messages',this)">✉<br>Messages</button>
+<button onclick="show('accounts',this)">◎<br>Accounts</button>
+<button onclick="show('security',this)">⚙<br>Security</button>
+</nav>
+
 <script>
-const tg = window.Telegram.WebApp;
+const tg=window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-function showPage(name) {
-  document.querySelectorAll('.page').forEach(page => {
-    page.classList.remove('active');
-  });
-  document.getElementById(name).classList.add('active');
+function show(id,button){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));
+if(button)button.classList.add('active');
 }
 
-function commentSearch() {
-  const url = document.getElementById('posturl').value.trim();
-  document.getElementById('commentResult').textContent =
-    /^https:\/\/(www\.)?instagram\.com\/(p|reel|tv)\//i.test(url)
-    ? 'The post URL is valid. Live comments require an approved Instagram integration.'
-    : 'Please enter a valid Instagram post or reel URL.';
+function searchProfile(){
+const value=document.getElementById('username').value.trim().replace(/^@/,'');
+document.getElementById('profileResult').textContent=
+/^[a-zA-Z0-9._]{1,30}$/.test(value)
+?'Username entered: @'+value+'. Live search is not connected yet.'
+:'Enter a valid username.';
 }
 
-function profileSearch() {
-  const username = document.getElementById('username').value.trim().replace(/^@/, '');
-  document.getElementById('profileResult').textContent =
-    /^[a-zA-Z0-9._]{1,30}$/.test(username)
-    ? 'Username: @' + username + '. Live profile lookup requires supported Instagram access.'
-    : 'Please enter a valid Instagram username.';
+function checkPost(){
+const value=document.getElementById('posturl').value.trim();
+document.getElementById('commentResult').textContent=
+/^https:\/\/(www\.)?instagram\.com\/(p|reel|tv)\//i.test(value)
+?'Link format looks valid. Live comment access is not connected yet.'
+:'Enter a valid Instagram post or reel link.';
 }
 </script>
-
 </body>
 </html>
